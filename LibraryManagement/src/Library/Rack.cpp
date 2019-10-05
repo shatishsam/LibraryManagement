@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
@@ -169,7 +168,7 @@ public:
 		std::thread t3(&Rack::addBookToCategoryMap, this, book);;  t3.detach();
 
 		//update the rack size
-		if (Books.size() >= LibraryConstants::getMaxBooksPerRow()) rackState = LibraryConstants::rackState::Full;
+		if (Books.size()>= LibraryConstants::getMaxBooksPerRow()) rackState = LibraryConstants::rackState::Full;
 		else rackState = LibraryConstants::rackState::Available;
 
 		return true;

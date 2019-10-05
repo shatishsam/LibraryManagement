@@ -1,5 +1,4 @@
 #pragma once
-
 #include <list>
 #include "../Library/Book.cpp"
 #include "Person.cpp"

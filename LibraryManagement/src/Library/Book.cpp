@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 #include "../LibraryConstants/LibraryConstants.cpp"
 using std::string;

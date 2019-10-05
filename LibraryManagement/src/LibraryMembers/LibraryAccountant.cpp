@@ -1,5 +1,4 @@
 #pragma once
-
 #include <unordered_set>
 #include "../Library/Library.cpp"
 #include "LibraryMember.cpp"

@@ -1,7 +1,6 @@
 #pragma once
-
-#include <vector>
 #include <iostream>
+#include <vector>
 #include "Rack.cpp"
 using std::cout; using std::endl;
 
