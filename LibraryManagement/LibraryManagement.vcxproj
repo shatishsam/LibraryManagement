@@ -27,7 +27,6 @@
     <ClCompile Include="src\Library\Book.cpp" />
     <ClCompile Include="src\Library\Library.cpp" />
     <ClCompile Include="src\Library\Rack.cpp" />
-    <ClCompile Include="src\Library\Source.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

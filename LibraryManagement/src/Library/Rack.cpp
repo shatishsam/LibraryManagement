@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <list>
+#include <thread>
 #include "Book.cpp"
 //#include "../LibraryConstants/LibraryConstants.cpp"
 using std::cout; using std::endl;
@@ -163,8 +164,10 @@ public:
 		//add to the list of the books
 		Books.insert(std::pair<int, Book>(book.getBookID(), book));
 
-		/*(THREAD THESE FUNCTIONS)add to the titlemap, authormap and categorymap*/
-		addBookToTitleMap(book); addBookToAuthorMap(book); addBookToCategoryMap(book);
+		/*add to the titlemap, authormap and categorymap*/
+		std::thread t1; (addBookToTitleMap, book); t1.detach();
+		std::thread t2; (addBookToAuthorMap, book); t2.detach();
+		std::thread t3; (addBookToCategoryMap, book); t3.detach();
 
 		//update the rack size
 		if (Books.size() >= LibraryConstants::getMaxBooksPerRow()) rackState = LibraryConstants::rackState::Full;
