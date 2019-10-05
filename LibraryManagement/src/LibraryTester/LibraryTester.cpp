@@ -13,4 +13,5 @@ int main()
 	accountant.tryaddBook(member, "Seven", "Dinesh", "Horror");
 
 	accountant.displayBooks(member);
+	accountant.getCategoryBook(member, "Horror");
 }

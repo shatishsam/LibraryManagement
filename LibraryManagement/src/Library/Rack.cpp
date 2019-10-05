@@ -6,7 +6,6 @@
 #include <list>
 #include <thread>
 #include "Book.cpp"
-//#include "../LibraryConstants/LibraryConstants.cpp"
 using std::cout; using std::endl;
 
 class Rack
@@ -165,9 +164,9 @@ public:
 		Books.insert(std::pair<int, Book>(book.getBookID(), book));
 
 		/*add to the titlemap, authormap and categorymap*/
-		std::thread t1; (addBookToTitleMap, book); t1.detach();
-		std::thread t2; (addBookToAuthorMap, book); t2.detach();
-		std::thread t3; (addBookToCategoryMap, book); t3.detach();
+		std::thread t1(&Rack::addBookToTitleMap, this,  book);  t1.detach();
+		std::thread t2(&Rack::addBookToAuthorMap, this, book);  t2.detach();
+		std::thread t3(&Rack::addBookToCategoryMap, this, book);;  t3.detach();
 
 		//update the rack size
 		if (Books.size() >= LibraryConstants::getMaxBooksPerRow()) rackState = LibraryConstants::rackState::Full;
