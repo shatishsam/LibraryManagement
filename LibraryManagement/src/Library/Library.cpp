@@ -17,6 +17,7 @@ public:
 	{
 		this->libraryName = libraryName;
 		this->Racks.clear();
+		addRack();
 	};
 
 public:

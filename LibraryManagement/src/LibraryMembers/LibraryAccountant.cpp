@@ -16,7 +16,6 @@ public:
 		this->memberID = rand();
 		this->validatedMembers.clear();
 		this->libraryObject = new Library("Zoho Library");
-		addRack();
 	}
 
 	/*methods relating to Accountant*/

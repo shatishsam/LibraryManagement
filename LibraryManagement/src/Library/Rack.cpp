@@ -108,11 +108,12 @@ public:
 		return this->rackState;
 	}
 
-	//display All Books
+	//display All Books which are not borrowed
 	void displayBooks()
 	{
 		for (auto& IT : Books)
 		{
+			if (IT.second.getBookState() == LibraryConstants::BookState::Borrowed) continue;
 			cout << IT.second.getTitle() << "->" << IT.second.getBookID() << endl;
 		}
 	}
@@ -120,7 +121,7 @@ public:
 	//display books with given title
 	void getTitleBook(string Title)
 	{
-		if (!isTitlePresent(Title)) { cout << "no books with Title " << Title << endl; return; }
+		if (!isTitlePresent(Title)) {cout << "no books with Title " << Title << endl; return;}
 		//get books and print
 		auto IT = titleMap.find(Title);
 		for (auto& IT2 : (*IT).second)
@@ -132,7 +133,7 @@ public:
 	//display books with given author name
 	void getAuthorBook(string Author)
 	{
-		if (!isAuthorPresent(Author)) { cout << "no books with Author " << Author << endl; return; }
+		if (!isAuthorPresent(Author)) {cout << "no books with Author " << Author << endl; return;}
 		//get books and print
 		auto IT = authorMap.find(Author);
 		for (auto& IT2 : (*IT).second)
@@ -144,7 +145,7 @@ public:
 	//display books with given category name
 	void getCategoryBook(string Category)
 	{
-		if (!isCategoryPresent(Category)) { cout << "no books with Category " << Category << endl; return; }
+		if (!isCategoryPresent(Category)) { cout << "no books with Category " << Category << endl; return;}
 		//get books and print
 		auto IT = categoryMap.find(Category);
 		for (auto& IT2 : (*IT).second)
@@ -163,9 +164,10 @@ public:
 		Books.insert(std::pair<int, Book>(book.getBookID(), book));
 
 		/*add to the titlemap, authormap and categorymap*/
-		std::thread t1(&Rack::addBookToTitleMap, this,  book);  t1.detach();
-		std::thread t2(&Rack::addBookToAuthorMap, this, book);  t2.detach();
-		std::thread t3(&Rack::addBookToCategoryMap, this, book);;  t3.detach();
+		std::thread t1(&Rack::addBookToTitleMap, this,  book); 
+		std::thread t2(&Rack::addBookToAuthorMap, this, book);  
+		std::thread t3(&Rack::addBookToCategoryMap, this, book);
+		t1.join(); t2.join(); t3.join();
 
 		//update the rack size
 		if (Books.size()>= LibraryConstants::getMaxBooksPerRow()) rackState = LibraryConstants::rackState::Full;
