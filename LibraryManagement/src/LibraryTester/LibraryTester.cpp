@@ -3,6 +3,14 @@
 #include "../LibraryMembers/LibraryAccountant.cpp"
 using namespace std;
 
+void displayOptions()
+{
+	cout << "1 to display books at library" << endl;
+	cout << "2 to lend a book" << endl;
+	cout << "3 to display your books" << endl;
+	cout << "0 to exit" << endl;
+}
+
 int main()
 {
 	LibraryAccountant accountant("AC1", "AC@123", 1234);
@@ -15,12 +23,8 @@ int main()
 	int input = -1;
 	do
 	{
-		cout << "1 to display books at library"<<endl;
-		cout << "2 to lend a book" << endl;
-		cout << "3 to display your books" << endl;
-		cout << "0 to exit" << endl;
+		displayOptions();
 		cin >> input;
-
 		switch (input)
 		{
 			case 1:
