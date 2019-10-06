@@ -10,17 +10,17 @@ private:
 
 public:
 	//data members
-	static enum BookState
+	enum BookState
 	{
 		Borrowed, Racked
 	};
 
-	static enum rackState
+	enum rackState
 	{
 		Full, Empty, Available
 	};
 
-	static enum MemberState
+	enum MemberState
 	{
 		Active, Blocked
 	};

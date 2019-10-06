@@ -30,4 +30,7 @@ public:
 
 	//get member state
 	LibraryConstants::MemberState getMemeberState() { return this->memberState; }
+
+	//set member state
+	void setMemberState(LibraryConstants::MemberState memberState) { this->memberState = memberState; }
 };

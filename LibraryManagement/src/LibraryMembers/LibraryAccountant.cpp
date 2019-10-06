@@ -5,12 +5,15 @@
 
 class LibraryAccountant : public Person
 {
+
 private:
+	//data members
 	int memberID;
 	Library* libraryObject = NULL;
 	std::unordered_set<int> validatedMembers;
 
 public:
+	//member functions
 	LibraryAccountant(std::string Name, std::string Email, int mobileNumber) : Person(Name, Email, mobileNumber)
 	{
 		this->memberID = rand();
@@ -23,14 +26,14 @@ private:
 	//get memer ID
 	int getMemberID() { return this->memberID; }
 
+	/*methods relating to LibraryMember*/
+private:
 	//throw invalid user error
 	static void printInvalidMemberError()
 	{
-		perror("Member Not Validated Yet Kindly Validate By Calling Validate Member Method");
+		perror("Member Blocked Or Not Validated Yet");
 	}
 
-	/*methods relating to LibraryMember*/
-private:
 	// validate the given user
 	bool isValidLibraryMember(LibraryMember member) { return member.getMemeberState() == LibraryConstants::MemberState::Active; }
 
@@ -45,6 +48,21 @@ private:
 			validatedMembers.insert(member.getMemberID());
 		}
 		return true;
+	}
+
+public:
+	//block library member and remove from validated list
+	void blockLibraryMember(LibraryMember* member) 
+	{
+		member->setMemberState(LibraryConstants::MemberState::Blocked);
+		validatedMembers.erase(member->getMemberID());
+	}
+
+	//unblock library member
+	void unblockLibraryMember(LibraryMember* member) 
+	{
+		member->setMemberState(LibraryConstants::MemberState::Active);
+		validatedMembers.insert(member->getMemberID());
 	}
 
 	/*methods relating to Library*/
