@@ -143,7 +143,6 @@ public:
 		//throw error if the member is invalid or the book has been borrowed already
 		if (!validateLibraryMember(*member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
 
-		bool isBookPresent = false;
 		//search on all the racks present at the library
 		for (int i = 0; i < Racks.size(); i++)
 		{
@@ -152,9 +151,11 @@ public:
 
 			//book is found update book state and add to the members book list
 			bookToLend->setBookState(LibraryConstants::BookState::Borrowed);
-			member->addBorrowedBook(*bookToLend); isBookPresent = true;
+			member->addBorrowedBook(*bookToLend); 
+			return;
 		}
-		if (!isBookPresent) cout << "The Book is not present in libary" << endl;
+		//book is not found any of the racks print book not found error
+		throwLibraryError(LibraryConstants::getNoBookExistsErrorMessage());
 	}
 
 };
