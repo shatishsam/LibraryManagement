@@ -29,9 +29,9 @@ private:
 	/*methods relating to LibraryMember*/
 private:
 	//throw invalid user error
-	static void printInvalidMemberError()
+	static void throwLibraryError(string errorMessage)
 	{
-		perror("Member Blocked Or Not Validated Yet");
+		std::cerr << errorMessage << endl;;
 	}
 
 	// validate the given user
@@ -80,14 +80,14 @@ public:
 	//display books
 	void displayBooks(LibraryMember member)
 	{
-		if (!validateLibraryMember(member)) { printInvalidMemberError(); return; }
+		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
 		this->libraryObject->displayBooks();
 	}
 
 	//add books to Library
 	void tryaddBook(LibraryMember member, string title, string author, string category)
 	{
-		if (!validateLibraryMember(member)) { printInvalidMemberError(); return; }
+		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
 		if (this->libraryObject->tryaddBook(title, author, category)) { cout << title << " Book added Sucessfuly" << endl; }
 		else cout << "Cannot add book as rack is full kindly add new rack" << endl;
 	}
@@ -95,21 +95,27 @@ public:
 	//search book by title
 	void getTitleBook(LibraryMember member, string titleName)
 	{
-		if (!validateLibraryMember(member)) { printInvalidMemberError(); return; }
+		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
 		this->libraryObject->getTitleBook(titleName);
 	}
 
 	//search book by author
 	void getAuthorBook(LibraryMember member, string authorName)
 	{
-		if (!validateLibraryMember(member)) { printInvalidMemberError(); return; }
+		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
 		this->libraryObject->getAuthorBook(authorName);
 	}
 
 	//search book by category
 	void getCategoryBook(LibraryMember member, string categoryName)
 	{
-		if (!validateLibraryMember(member)) { printInvalidMemberError(); return; }
+		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
 		this->libraryObject->getCategoryBook(categoryName);
+	}
+
+	//lend book to LibraryMember
+	void lendBookToLibraryMember(LibraryMember member, int BookID)
+	{
+
 	}
 };
