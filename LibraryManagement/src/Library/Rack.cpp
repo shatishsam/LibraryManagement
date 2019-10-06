@@ -114,7 +114,7 @@ public:
 		for (auto& IT : Books)
 		{
 			if (IT.second.getBookState() == LibraryConstants::BookState::Borrowed) continue;
-			cout << IT.second.getTitle() << "->" << IT.second.getBookID() << endl;
+			cout << IT.second.getTitle() << " -> " << IT.second.getBookID() << endl;
 		}
 	}
 
@@ -126,7 +126,7 @@ public:
 		auto IT = titleMap.find(Title);
 		for (auto& IT2 : (*IT).second)
 		{
-			cout << IT2.getTitle() << endl;
+			cout << IT2.getTitle() <<" -> "<<IT2.getBookID() << endl;
 		}
 	}
 
@@ -138,7 +138,7 @@ public:
 		auto IT = authorMap.find(Author);
 		for (auto& IT2 : (*IT).second)
 		{
-			cout << IT2.getTitle() << endl;
+			cout << IT2.getTitle() << " -> " << IT2.getBookID() << endl;
 		}
 	}
 
@@ -150,7 +150,7 @@ public:
 		auto IT = categoryMap.find(Category);
 		for (auto& IT2 : (*IT).second)
 		{
-			cout << IT2.getTitle() << endl;
+			cout << IT2.getTitle() << " -> " << IT2.getBookID() << endl;
 		}
 	}
 

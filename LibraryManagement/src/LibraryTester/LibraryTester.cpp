@@ -15,8 +15,6 @@ int main()
 	accountant.displayBooks(member);
 	accountant.getCategoryBook(member, "Horror");
 
-	//accountant.blockLibraryMember(&member);
 	accountant.blockLibraryMember(&member);
-	cout << "Blocked member state is" << member.getMemeberState() << endl;
 	accountant.displayBooks(member);
 }
