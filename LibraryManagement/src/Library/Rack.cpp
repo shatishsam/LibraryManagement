@@ -175,4 +175,12 @@ public:
 
 		return true;
 	}
+
+	//return book with the given book_id. if no such book exists return null
+	Book* getBook(int bookID)
+	{
+		auto IT = Books.find(bookID);
+		if (IT!=Books.end() && IT->second.getBookState()!=LibraryConstants::BookState::Borrowed) return &IT->second;
+		return NULL;
+	}
 };

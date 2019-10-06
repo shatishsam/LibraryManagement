@@ -29,4 +29,5 @@ public:
 	string getAuthor() { return Author; }
 	string getCategory() { return Category; }
 	LibraryConstants::BookState getBookState() { return this->bookState; }
+	void setBookState(LibraryConstants::BookState bookState) { this->bookState=bookState; }
 };

@@ -10,14 +10,12 @@ private:
 	//data members
 	int memberID;
 	Library* libraryObject = NULL;
-	std::unordered_set<int> validatedMembers;
 
 public:
 	//member functions
 	LibraryAccountant(std::string Name, std::string Email, int mobileNumber) : Person(Name, Email, mobileNumber)
 	{
 		this->memberID = rand();
-		this->validatedMembers.clear();
 		this->libraryObject = new Library("Zoho Library");
 	}
 
@@ -28,41 +26,25 @@ private:
 
 	/*methods relating to LibraryMember*/
 private:
-	//throw invalid user error
+	//throw error
 	static void throwLibraryError(string errorMessage)
 	{
 		std::cerr << errorMessage << endl;;
 	}
 
-	// validate the given user
-	bool isValidLibraryMember(LibraryMember member) { return member.getMemeberState() == LibraryConstants::MemberState::Active; }
-
-	//check if the member is validated already
-	bool validateLibraryMember(LibraryMember member)
-	{
-		//check if already validated before
-		if (validatedMembers.find(member.getMemberID()) == validatedMembers.end())
-		{
-			//if not present validate and add to validated members list
-			if (!isValidLibraryMember(member)) return false;
-			validatedMembers.insert(member.getMemberID());
-		}
-		return true;
-	}
+	
 
 public:
 	//block library member and remove from validated list
 	void blockLibraryMember(LibraryMember* member) 
 	{
-		member->setMemberState(LibraryConstants::MemberState::Blocked);
-		validatedMembers.erase(member->getMemberID());
+		libraryObject->blockLibraryMember(member);
 	}
 
 	//unblock library member
 	void unblockLibraryMember(LibraryMember* member) 
 	{
-		member->setMemberState(LibraryConstants::MemberState::Active);
-		validatedMembers.insert(member->getMemberID());
+		libraryObject->unblockLibraryMember(member);
 	}
 
 	/*methods relating to Library*/
@@ -70,7 +52,7 @@ private:
 	//add new rack to the library
 	void addRack()
 	{
-		this->libraryObject->addRack();
+		libraryObject->addRack();
 	}
 
 public:
@@ -78,44 +60,23 @@ public:
 	void displayLibraryName() { cout << this->libraryObject->getLibraryName() << endl; }
 
 	//display books
-	void displayBooks(LibraryMember member)
-	{
-		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
-		this->libraryObject->displayBooks();
-	}
+	void displayBooks(LibraryMember member) { libraryObject->displayBooks(member); }
 
 	//add books to Library
-	void tryaddBook(LibraryMember member, string title, string author, string category)
-	{
-		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
-		if (this->libraryObject->tryaddBook(title, author, category)) { cout << title << " Book added Sucessfuly" << endl; }
-		else cout << "Cannot add book as rack is full kindly add new rack" << endl;
-	}
+	void tryaddBook(LibraryMember member, string title, string author, string category) { libraryObject->tryaddBook(title, author, category, member); }
 
 	//search book by title
-	void getTitleBook(LibraryMember member, string titleName)
-	{
-		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
-		this->libraryObject->getTitleBook(titleName);
-	}
+	void getTitleBook(LibraryMember member, string titleName) { libraryObject->getTitleBook(titleName, member); }
 
 	//search book by author
-	void getAuthorBook(LibraryMember member, string authorName)
-	{
-		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
-		this->libraryObject->getAuthorBook(authorName);
-	}
+	void getAuthorBook(LibraryMember member, string authorName) { libraryObject->getAuthorBook(authorName, member); }
 
 	//search book by category
-	void getCategoryBook(LibraryMember member, string categoryName)
-	{
-		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
-		this->libraryObject->getCategoryBook(categoryName);
-	}
+	void getCategoryBook(LibraryMember member, string categoryName) { libraryObject->getCategoryBook(categoryName, member); }
 
 	//lend book to LibraryMember
-	void lendBookToLibraryMember(LibraryMember member, int BookID)
+	void lendBookToLibraryMember(LibraryMember* member, int bookID)
 	{
-
+		libraryObject->lendBookToLibraryMember(bookID, member);
 	}
 };

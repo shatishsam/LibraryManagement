@@ -53,6 +53,6 @@ public:
 
 	static std::string getNoBookExistsErrorMessage()
 	{
-		return invalidLibraryMemberError;
+		return noSuchBookExistsError;
 	}
 };

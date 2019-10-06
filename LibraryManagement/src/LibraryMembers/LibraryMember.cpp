@@ -33,10 +33,16 @@ public:
 
 	//set member state
 	void setMemberState(LibraryConstants::MemberState memberState) { this->memberState = memberState; }
+	
+	//add book to user
+	void addBorrowedBook(Book borrowedBook) { borrowedBooks.push_back(borrowedBook); }
 
-	//borrow books from Library
-	void borrowBook(int bookID)
+	//display all borrowed book
+	void displayBorrowedBooks()
 	{
-		
+		for (auto IT : borrowedBooks)
+		{
+			cout << IT.getTitle() << " -> " << IT.getBookID() << endl;
+		}
 	}
 };
