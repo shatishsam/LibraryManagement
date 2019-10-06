@@ -33,4 +33,10 @@ public:
 
 	//set member state
 	void setMemberState(LibraryConstants::MemberState memberState) { this->memberState = memberState; }
+
+	//borrow books from Library
+	bool borrowBook(int bookID)
+	{
+
+	}
 };
