@@ -8,7 +8,6 @@ class LibraryMember :public Person
 private:
 	//data members
 	int memberID;
-	int booksBorrowed;
 	std::list<Book> borrowedBooks;
 	LibraryConstants::MemberState memberState;
 
@@ -17,7 +16,6 @@ public:
 	LibraryMember(std::string Name, std::string Email, int mobileNumber) : Person(Name, Email, mobileNumber)
 	{
 		this->memberID = rand();
-		this->booksBorrowed = 0;
 		this->borrowedBooks.clear();
 		this->memberState = LibraryConstants::MemberState::Active;
 	}
@@ -26,7 +24,7 @@ public:
 	int getMemberID() { return this->memberID; }
 
 	//get books borrowed
-	int getBooksBorrowed() { return this->booksBorrowed; }
+	int getNumberOfBooksBorrowed() { return this->borrowedBooks.size(); }
 
 	//get member state
 	LibraryConstants::MemberState getMemeberState() { return this->memberState; }
@@ -44,5 +42,15 @@ public:
 		{
 			cout << IT.getTitle() << " -> " << IT.getBookID() << endl;
 		}
+	}
+
+	//check if the book is borrowed by the member
+	bool isBookPresentWithMember(int BookID)
+	{
+		for (auto IT : borrowedBooks)
+		{
+			if (IT.getBookID() == BookID) return true;
+		}
+		return false;
 	}
 };

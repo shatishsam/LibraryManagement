@@ -7,10 +7,13 @@ private:
 	static const int Max_Days_Borrowed = 10;
 	static const int Fine_Amount = 10;
 	static const int Max_Books_perRow = 10;
+	static const int Max_Books_Borrowed = 10;
 
 	//error messages
 	static constexpr const char* invalidLibraryMemberError = "Member Has Been Blocked";
 	static constexpr const char* noSuchBookExistsError = "No Such Book Exists For The Given Book ID";
+	static constexpr const char* maxBooksBorrowedError = "User Has Already Borrowed Maximum Of 10 Books";
+	static constexpr const char* noSuchBookBorrwedError = "User Has Not Borrowed Such Book";
 
 public:
 	//data members
@@ -46,6 +49,11 @@ public:
 		return Max_Books_perRow;
 	}
 
+	static int getMaxBooksBorrowed()
+	{
+		return Max_Books_Borrowed;
+	}
+
 	static std::string getInvalidMemberErrorMessage()
 	{
 		return invalidLibraryMemberError;
@@ -54,5 +62,15 @@ public:
 	static std::string getNoBookExistsErrorMessage()
 	{
 		return noSuchBookExistsError;
+	}
+
+	static std::string getMaxBooksBorrowedErrorMessage()
+	{
+		return noSuchBookExistsError;
+	}
+
+	static std::string noSuchBookBorrwedErrorMessage()
+	{
+		return noSuchBookBorrwedError;
 	}
 };

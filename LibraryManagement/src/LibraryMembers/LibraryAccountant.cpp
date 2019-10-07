@@ -75,8 +75,5 @@ public:
 	void getCategoryBook(LibraryMember member, string categoryName) { libraryObject->getCategoryBook(categoryName, member); }
 
 	//lend book to LibraryMember
-	void lendBookToLibraryMember(LibraryMember* member, int bookID)
-	{
-		libraryObject->lendBookToLibraryMember(bookID, member);
-	}
+	void lendBookToLibraryMember(LibraryMember* member, int bookID) { libraryObject->lendBookToLibraryMember(bookID, member); }
 };

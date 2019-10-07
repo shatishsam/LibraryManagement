@@ -130,7 +130,7 @@ public:
 		validatedMembers.erase(member->getMemberID());
 	}
 
-	// unblock library member
+	//unblock library member
 	void unblockLibraryMember(LibraryMember* member)
 	{
 		member->setMemberState(LibraryConstants::MemberState::Active);
@@ -142,6 +142,8 @@ public:
 	{
 		//throw error if the member is invalid or the book has been borrowed already
 		if (!validateLibraryMember(*member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
+		//throw error if member has already borrowed maximum books
+		if(member->getNumberOfBooksBorrowed()>=LibraryConstants::getMaxBooksBorrowed()) { throwLibraryError(LibraryConstants::getMaxBooksBorrowedErrorMessage()); return; }
 
 		//search on all the racks present at the library
 		for (int i = 0; i < Racks.size(); i++)
@@ -154,8 +156,18 @@ public:
 			member->addBorrowedBook(*bookToLend); 
 			return;
 		}
+
 		//book is not found any of the racks print book not found error
 		throwLibraryError(LibraryConstants::getNoBookExistsErrorMessage());
 	}
 
+	void returnBookFromLibraryMember(LibraryMember* member, int bookID)
+	{
+		//throw error if the member is invalid or the book has been borrowed already
+		if (!validateLibraryMember(*member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
+		//throw error if member has no such book
+		if(!member->isBookPresentWithMember(bookID)) { throwLibraryError(LibraryConstants::noSuchBookBorrwedErrorMessage()); return; }
+
+
+	}
 };
