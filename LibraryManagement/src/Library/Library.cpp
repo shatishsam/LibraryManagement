@@ -153,7 +153,7 @@ public:
 
 			//book is found update book state and add to the members book list
 			bookToLend->setBookState(LibraryConstants::BookState::Borrowed);
-			member->addBorrowedBook(*bookToLend); 
+			member->addBorrowedBook(bookToLend); 
 			return;
 		}
 
@@ -161,13 +161,16 @@ public:
 		throwLibraryError(LibraryConstants::getNoBookExistsErrorMessage());
 	}
 
-	void returnBookFromLibraryMember(LibraryMember* member, int bookID)
+	//return a book from member and change its state
+	void returnBookFromLibraryMember(int bookID, LibraryMember* member)
 	{
 		//throw error if the member is invalid or the book has been borrowed already
 		if (!validateLibraryMember(*member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
+		
 		//throw error if member has no such book
-		if(!member->isBookPresentWithMember(bookID)) { throwLibraryError(LibraryConstants::noSuchBookBorrwedErrorMessage()); return; }
+		if(!member->isBookBorrowed(bookID)) { throwLibraryError(LibraryConstants::noSuchBookBorrwedErrorMessage()); return; }
 
-
+		//remove the book from user and update its state
+		member->returnBorrowedBook(bookID);
 	}
 };

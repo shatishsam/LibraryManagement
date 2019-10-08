@@ -1,5 +1,5 @@
 #pragma once
-#include <list>
+#include <unordered_map>
 #include "../Library/Book.cpp"
 #include "Person.cpp"
 
@@ -8,7 +8,7 @@ class LibraryMember :public Person
 private:
 	//data members
 	int memberID;
-	std::list<Book> borrowedBooks;
+	std::unordered_map<int, Book*> borrowedBooks;
 	LibraryConstants::MemberState memberState;
 
 public:
@@ -33,24 +33,38 @@ public:
 	void setMemberState(LibraryConstants::MemberState memberState) { this->memberState = memberState; }
 	
 	//add book to user
-	void addBorrowedBook(Book borrowedBook) { borrowedBooks.push_back(borrowedBook); }
+	void addBorrowedBook(Book *borrowedBook) { borrowedBooks.insert(std::pair<int, Book*>(borrowedBook->getBookID(), borrowedBook)); }
 
 	//display all borrowed book
 	void displayBorrowedBooks()
 	{
 		for (auto IT : borrowedBooks)
 		{
-			cout << IT.getTitle() << " -> " << IT.getBookID() << endl;
+			cout <<IT.first  << " -> " << IT.second->getTitle() << endl;
 		}
 	}
 
 	//check if the book is borrowed by the member
-	bool isBookPresentWithMember(int BookID)
+	bool isBookBorrowed(int bookID)
 	{
-		for (auto IT : borrowedBooks)
+		auto IT = borrowedBooks.find(bookID);
+		return IT != borrowedBooks.end();
+	}
+
+	//remove book from borrowed list
+	void returnBorrowedBook(int bookID)
+	{
+		//remove the book make sure to call the isbookborrowed before calling this method
+		auto IT = borrowedBooks.find(bookID);
+		try 
 		{
-			if (IT.getBookID() == BookID) return true;
+			Book* borrowedBook = (*IT).second;
+			borrowedBook->setBookState(LibraryConstants::BookState::Racked); //change the state of returned book
+			borrowedBooks.erase(IT);
 		}
-		return false;
+		catch (...)
+		{
+			std::cerr << "No Such Book Present Exception" << endl;
+		}
 	}
 };

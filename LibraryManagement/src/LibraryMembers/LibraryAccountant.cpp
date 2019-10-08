@@ -76,4 +76,7 @@ public:
 
 	//lend book to LibraryMember
 	void lendBookToLibraryMember(LibraryMember* member, int bookID) { libraryObject->lendBookToLibraryMember(bookID, member); }
+
+	//return book from LibraryMember
+	void returnBookFromLibraryMember(LibraryMember* member, int bookID) { libraryObject->returnBookFromLibraryMember(bookID, member); }
 };

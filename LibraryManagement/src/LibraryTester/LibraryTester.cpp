@@ -8,6 +8,7 @@ void displayOptions()
 	cout << "1 to display books at library" << endl;
 	cout << "2 to lend a book" << endl;
 	cout << "3 to display your books" << endl;
+	cout << "4 to return borrowed book" << endl;
 	cout << "0 to exit" << endl;
 }
 
@@ -44,6 +45,14 @@ int main()
 			case 3:
 			{
 				member.displayBorrowedBooks();
+				break;
+			}
+
+			case 4:
+			{
+				cout << "Enter the book id you want to return" << endl;
+				int bookID; cin >> bookID;
+				accountant.returnBookFromLibraryMember(&member, bookID);
 				break;
 			}
 		}
