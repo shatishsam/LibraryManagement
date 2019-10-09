@@ -16,10 +16,15 @@ int main()
 {
 	LibraryAccountant accountant("AC1", "AC@123", 1234);
 	accountant.displayLibraryName();
+	accountant.addRack();
 
 	LibraryMember member("Member1", "Mem@123", 1234);
-	accountant.tryaddBook(member, "Avenged", "Shathish", "Horror");
-	accountant.tryaddBook(member, "Seven", "Dinesh", "Horror");
+	for (int i = 0; i < 6; i++)
+	{
+		accountant.addBookToLobrary("Avenged", "Shathish", "Horror");
+		accountant.addBookToLobrary("Seven", "Dinesh", "Horror");
+	}
+	
 	
 	int input = -1;
 	do

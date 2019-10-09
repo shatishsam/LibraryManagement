@@ -19,12 +19,6 @@ public:
 		this->libraryObject = new Library("Zoho Library");
 	}
 
-	/*methods relating to Accountant*/
-private:
-	//get memer ID
-	int getMemberID() { return this->memberID; }
-
-	/*methods relating to LibraryMember*/
 private:
 	//throw error
 	static void throwLibraryError(string errorMessage)
@@ -32,38 +26,33 @@ private:
 		std::cerr << errorMessage << endl;;
 	}
 
-	
-
-public:
-	//block library member and remove from validated list
-	void blockLibraryMember(LibraryMember* member) 
-	{
-		libraryObject->blockLibraryMember(member);
-	}
-
-	//unblock library member
-	void unblockLibraryMember(LibraryMember* member) 
-	{
-		libraryObject->unblockLibraryMember(member);
-	}
+	/*methods relating to Accountant*/
+private:
+	//get memer ID
+	int getMemberID() { return this->memberID; }
 
 	/*methods relating to Library*/
-private:
-	//add new rack to the library
-	void addRack()
-	{
-		libraryObject->addRack();
-	}
-
 public:
+	//add new rack to the library
+	void addRack() { libraryObject->addRack(); }
+
+	//add books to Library 
+	void addBookToLobrary(string title, string author, string category) { libraryObject->addBookToLobrary(title, author, category); }
+
 	//display library name
 	void displayLibraryName() { cout << this->libraryObject->getLibraryName() << endl; }
 
+
+	/*methods relating to LibraryMember*/
+public:
+	//block library member and remove from validated list
+	void blockLibraryMember(LibraryMember* member) { libraryObject->blockLibraryMember(member); }
+
+	//unblock library member
+	void unblockLibraryMember(LibraryMember* member) { libraryObject->unblockLibraryMember(member); }
+
 	//display books
 	void displayBooks(LibraryMember member) { libraryObject->displayBooks(member); }
-
-	//add books to Library
-	void tryaddBook(LibraryMember member, string title, string author, string category) { libraryObject->tryaddBook(title, author, category, member); }
 
 	//search book by title
 	void getTitleBook(LibraryMember member, string titleName) { libraryObject->getTitleBook(titleName, member); }

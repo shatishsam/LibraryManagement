@@ -170,7 +170,7 @@ public:
 		t1.join(); t2.join(); t3.join();
 
 		//update the rack size
-		if (Books.size()>= LibraryConstants::getMaxBooksPerRow()) rackState = LibraryConstants::rackState::Full;
+		if (Books.size() >= LibraryConstants::getMaxBooksPerRow()) rackState = LibraryConstants::rackState::Full;
 		else rackState = LibraryConstants::rackState::Available;
 
 		return true;

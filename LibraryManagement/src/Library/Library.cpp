@@ -36,8 +36,10 @@ public:
 	void displayBooks(LibraryMember member)
 	{
 		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
+
 		for (int i = 0; i < Racks.size(); i++)
 		{
+			if (Racks[i].getRackState() == LibraryConstants::rackState::Empty) continue;
 			cout << "Displaying Books at RackID " << Racks[i].getRackID() << endl;
 			Racks[i].displayBooks();
 		}
@@ -55,16 +57,15 @@ public:
 	}
 
 	//add books to rack which has free slot
-	void tryaddBook(string title, string author, string category, LibraryMember member)
+	void addBookToLobrary(string title, string author, string category)
 	{
-		if (!validateLibraryMember(member)) { throwLibraryError(LibraryConstants::getInvalidMemberErrorMessage()); return; }
-
 		bool isAdded = false;
 		for (int i = 0; i < Racks.size(); i++)
 		{
 			if (Racks[i].getRackState() == LibraryConstants::Full) continue;
 			Racks[i].addBook(Book(title, author, category));
-			isAdded = true; cout << title << " Book added Sucessfuly" << endl;
+			isAdded = true; cout << title << " Book added Sucessfuly at Rack "<<Racks[i].getRackID() << endl;
+			return;
 		}
 		if(!isAdded) cout << "Cannot add book as rack is full kindly add new rack" << endl;
 	}
