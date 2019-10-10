@@ -68,4 +68,7 @@ public:
 
 	//return book from LibraryMember
 	void returnBookFromLibraryMember(LibraryMember* member, int bookID) { libraryObject->returnBookFromLibraryMember(bookID, member); }
+
+	//show borrwed books details
+	void showBorrowedBookDetails() { libraryObject->displayBookingDetails(); }
 };

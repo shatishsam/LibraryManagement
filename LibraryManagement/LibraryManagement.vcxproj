@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Booking\LibraryBooking.cpp" />
     <ClCompile Include="src\LibraryConstants\LibraryConstants.cpp" />
     <ClCompile Include="src\LibraryMembers\LibraryAccountant.cpp" />
     <ClCompile Include="src\LibraryMembers\LibraryMember.cpp" />

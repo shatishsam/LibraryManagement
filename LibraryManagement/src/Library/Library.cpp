@@ -3,6 +3,7 @@
 #include <vector>
 #include "Rack.cpp"
 #include "../LibraryMembers/LibraryMember.cpp"
+#include "../Booking/LibraryBooking.cpp"
 using std::cout; using std::endl;
 
 class Library
@@ -11,7 +12,8 @@ private:
 	//data members
 	std::string libraryName;
 	std::vector<Rack> Racks;
-	std::unordered_set<int> validatedMembers;
+	std::unordered_set<int> validatedMembers; //list of validated librray members
+	std::unordered_map<int, LibraryBooking> borrowedDetails; //map of book id to booking 
 
 public:
 	//member functions
@@ -20,6 +22,7 @@ public:
 		this->libraryName = libraryName;
 		this->Racks.clear();
 		this->validatedMembers.clear();
+		this->borrowedDetails.clear();
 		addRack();
 	};
 
@@ -42,6 +45,28 @@ public:
 			if (Racks[i].getRackState() == LibraryConstants::rackState::Empty) continue;
 			cout << "Displaying Books at RackID " << Racks[i].getRackID() << endl;
 			Racks[i].displayBooks();
+		}
+	}
+
+	//add a new booking to librray
+	void addNewBooking(int bookID, LibraryBooking newBooking)
+	{
+		this->borrowedDetails.insert(std::pair<int, LibraryBooking>(bookID, newBooking));
+	}
+
+	//remove a booking as member has returned the book
+	void removeBooking(int bookID)
+	{
+		auto IT = borrowedDetails.find(bookID);
+		borrowedDetails.erase(IT);
+	}
+
+	//display bookings done in library
+	void displayBookingDetails()
+	{
+		for (auto& IT : borrowedDetails)
+		{
+			IT.second.displayBookingDetails();
 		}
 	}
 
@@ -155,6 +180,10 @@ public:
 			//book is found update book state and add to the members book list
 			bookToLend->setBookState(LibraryConstants::BookState::Borrowed);
 			member->addBorrowedBook(bookToLend); 
+
+			//add to Booking Details
+			LibraryBooking newBorrowedBooking(member, bookToLend);
+			addNewBooking(bookid, newBorrowedBooking);
 			return;
 		}
 
@@ -173,5 +202,8 @@ public:
 
 		//remove the book from user and update its state
 		member->returnBorrowedBook(bookID);
+
+		//remove the library booking for this book
+		removeBooking(bookID);
 	}
 };
