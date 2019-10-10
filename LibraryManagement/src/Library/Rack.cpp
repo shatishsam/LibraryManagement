@@ -12,9 +12,9 @@ class Rack
 private:
 	int rackID;
 	std::unordered_map<int, Book> Books;
-	std::unordered_multimap<string, std::list<Book>> titleMap;
-	std::unordered_multimap<string, std::list<Book>> authorMap;
-	std::unordered_multimap<string, std::list<Book>> categoryMap;
+	std::unordered_map<string, std::list<Book>> titleMap;
+	std::unordered_map<string, std::list<Book>> authorMap;
+	std::unordered_map<string, std::list<Book>> categoryMap;
 	LibraryConstants::rackState rackState;
 
 public:

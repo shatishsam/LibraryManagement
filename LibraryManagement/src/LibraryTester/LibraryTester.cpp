@@ -10,6 +10,7 @@ void displayOptions()
 	cout << "3 to display your books" << endl;
 	cout << "4 to return borrowed book" << endl;
 	cout << "5 to display Borrwed Book Details" << endl;
+	cout << "6 to search book in library" << endl;
 	cout << "0 to exit" << endl;
 }
 
@@ -65,6 +66,21 @@ int main()
 			case 5:
 			{
 				accountant.showBorrowedBookDetails();
+				break;
+			}
+
+			case 6:
+			{
+				cout << "enter 1 to serach by title 2 to search by author 3 to search by category" << endl;
+				int searchInput; cin >> searchInput;
+				if (searchInput < 1 || searchInput>3) { cout << "wrong input" << endl; break; }
+
+				//get the search keyword and search
+				cout << "enter the keyword to search" << endl;
+				string keyWord; cin >> keyWord;
+				if (searchInput == 1) accountant.getTitleBook(member, keyWord);
+				if (searchInput == 2) accountant.getAuthorBook(member, keyWord);
+				if (searchInput == 3) accountant.getCategoryBook(member, keyWord);
 				break;
 			}
 		}
